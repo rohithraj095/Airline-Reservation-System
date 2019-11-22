@@ -11,6 +11,6 @@ public class BoardingPass {
                 "PASSENGER FIRST NAME " + passenger.getfName().toUpperCase() + "\n" +
                 "PASSENGER LAST NAME " + passenger.getlName().toUpperCase() + "\n" +
                 "PASSENGER AGE " + passenger.getAge();// + "\n" +
-                //"You can now begin boarding at gate " + passenger.getAirline().getGatetoString();
+                "You can now begin boarding at gate " + passenger.getAirline().getGate();
     }
 }
