@@ -10,7 +10,7 @@ public class BoardingPass {
         return "BOARDING PASS FOR FLIGHT 18000 WITH " + passenger.getAirline() + "\n" +
                 "PASSENGER FIRST NAME " + passenger.getfName().toUpperCase() + "\n" +
                 "PASSENGER LAST NAME " + passenger.getlName().toUpperCase() + "\n" +
-                "PASSENGER AGE " + passenger.getAge();// + "\n" +
+                "PASSENGER AGE " + passenger.getAge() + "\n" +
                 "You can now begin boarding at gate " + passenger.getAirline().getGate();
     }
 }

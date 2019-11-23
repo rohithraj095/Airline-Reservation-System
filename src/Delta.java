@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Delta implements Airline {
 
     private ArrayList<Passenger> passengers;
+    private Gate gate;
 
     public Delta () {
         passengers = new ArrayList<>();
+        gate = new Gate();
     }
 
     public void addPassengers(Passenger passenger) {
@@ -23,6 +25,10 @@ public class Delta implements Airline {
         return 200;
     }
 
+    public boolean canAddPassenger() {
+        return (passengers.size() < 200);
+    }
+
     @Override
     public String toString() {
         return "Delta Airlines is proud to be one of the five premier Airlines at Purdue University. \n" +
@@ -33,7 +39,6 @@ public class Delta implements Airline {
     }
 
     public String getGate() {
-        Gate gate = new Gate();
         return gate.toString();
     }
 }

@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Alaska implements Airline {
 
     private ArrayList<Passenger> passengers;
+    private Gate gate;
 
     public Alaska() {
         passengers = new ArrayList<>();
+        gate = new Gate();
     }
 
     public void addPassengers(Passenger passenger) {
@@ -23,6 +25,10 @@ public class Alaska implements Airline {
         return 100;
     }
 
+    public boolean canAddPassenger() {
+        return (passengers.size() < 100);
+    }
+
     @Override
     public String toString() {
         return "Alaska Airlines is proud to serve the strong and knowledgeable Boilermakers from Purdue University. \n" +
@@ -34,8 +40,6 @@ public class Alaska implements Airline {
     }
 
     public String getGate() {
-        Gate gate = new Gate();
         return gate.toString();
     }
 }
-

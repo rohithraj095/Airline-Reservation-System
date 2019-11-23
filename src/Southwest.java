@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Southwest implements Airline {
 
     private ArrayList<Passenger> passengers;
+    private Gate gate;
 
     public Southwest () {
         passengers = new ArrayList<>();
+        gate = new Gate();
     }
 
     public void addPassengers(Passenger passenger) {
@@ -23,6 +25,10 @@ public class Southwest implements Airline {
         return 100;
     }
 
+    public boolean canAddPassenger() {
+        return (passengers.size() < 100);
+    }
+
     @Override
     public String toString() {
         return "Southwest Airlines is proud to offer flights to Purdue University. \n" +
@@ -32,8 +38,6 @@ public class Southwest implements Airline {
     }
 
     public String getGate() {
-        Gate gate = new Gate();
         return gate.toString();
     }
 }
-

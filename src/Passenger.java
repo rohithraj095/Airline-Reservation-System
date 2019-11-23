@@ -24,7 +24,11 @@ public class Passenger {
         return age;
     }
 
-    public Airline getAirline(){
+    public BoardingPass boardingPass(){
+        return new BoardingPass(this);
+    }
+
+    public Airline getAirline() {
         return airline;
     }
 
