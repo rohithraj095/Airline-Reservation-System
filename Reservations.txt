@@ -1,12 +1,12 @@
 Alaska
-1/200
+1/100
 J. Doe, 18
 
 Delta
-2/200
+1/100
 A. Johnson, 20
 B. Miller, 25
 
 Southwest
-1/200
+1/100
 H. Smith, 30

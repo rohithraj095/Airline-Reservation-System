@@ -22,7 +22,7 @@ public class Delta implements Airline {
 
     @Override
     public int getMaxPassengers() {
-        return 200;
+        return 100;
     }
 
     public boolean canAddPassenger() {

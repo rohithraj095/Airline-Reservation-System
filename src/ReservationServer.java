@@ -243,7 +243,7 @@ public final class ReservationServer {
             } //gets to the line with the name of the airline
             line = bfr.readLine(); //read one more line to get to the number of passengers
             String currentPass = line.substring(0, line.indexOf('/'));
-            String maxPass = line.substring(line.indexOf("/") + 1);
+            String maxPass = line.substring(line.indexOf('/') + 1);
             bfr.close();
             return (Integer.parseInt(currentPass) < Integer.parseInt(maxPass));
         }
