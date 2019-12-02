@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -50,7 +51,7 @@ public final class ReservationServer {
 
     public ReservationServer() throws IOException {
         this.serverSocket = new ServerSocket(0);
-    } //CountdownServer
+    } //ReservationServer
 
     /**
      * Serves the clients that connect to this server.
@@ -71,7 +72,6 @@ public final class ReservationServer {
 
                 break;
             } //end try catch
-
 
             handler = new ClientHandler(clientSocket);
 
@@ -137,7 +137,7 @@ public final class ReservationServer {
      */
     @Override
     public String toString() {
-        String format = "CountdownServer[%s]";
+        String format = "ReservationServer[%s]";
 
         return String.format(format, this.serverSocket);
     } //toString
@@ -160,57 +160,60 @@ public final class ReservationServer {
             Objects.requireNonNull(clientSocket, "the specified client socket is null");
 
             this.clientSocket = clientSocket;
-        } //CountdownRequestHandler
+        } //ClientHandler
 
-        /**
-         * Returns the time remaining until the specified event date. The returned {@code String} is of the form
-         * {@code xYyMzD}, where {@code x}, {@code y}, and {@code z} are the number of years, months, and days until the
-         * specified date.
-         *
-         * @param eventDate the event date to be used in the operation
-         * @return the time remaining until the specified event date
-         * @throws DateTimeParseException if the specified event date is not parsable
-         */
-        private String getTimeRemaining(String eventDate) throws DateTimeParseException {
-            LocalDate now = LocalDate.now();
-            LocalDate event = LocalDate.parse(eventDate);
-            Period period = Period.between(now, event);
-            int years;
-            int months;
-            int days;
 
-            years = period.getYears();
+        public ArrayList readPassList(String airlineChoice) throws IOException {
+            FileReader fr = new FileReader("Reservations.txt");
+            BufferedReader bfr = new BufferedReader(fr);
+            String line = bfr.readLine();
+            ArrayList passList = new ArrayList();
+            while (!line.equals(airlineChoice)) {
+                line = bfr.readLine();
+            } //now on the line that says what airline it is
+            line = bfr.readLine();
+            line = bfr.readLine(); //skipped the line with the numbers
+            while (line != null) {
+                //System.out.println(line); //instead send to client somehow?
+                passList.add(line);
+                line = bfr.readLine();
+            }
+            bfr.close();
+            return passList;
+        }
 
-            months = period.getMonths();
+        public void addPassenger(String firstName, String lastName, int age) throws FileNotFoundException {
+            FileOutputStream fos = new FileOutputStream("Reservations.txt", true);
+            PrintWriter pw = new PrintWriter(fos);
+            //Update the current number of passengers. How to overwrite a line???
+            pw.println("Current num passengers + 1" + "/" + "Max num");
+            //figure out how to start at the correct line so it prints in the right spot
+            pw.println(firstName.toUpperCase().substring(0, 1) + ". " + lastName + ", " + age);
+            pw.close();
+        }
 
-            days = period.getDays();
-
-            if (years < 0) {
-                years = 0;
-            } //end if
-
-            if (months < 0) {
-                months = 0;
-            } //end if
-
-            if (days < 0) {
-                days = 0;
-            } //end if
-
-            return String.format("%dY%dM%dD", years, months, days);
-        } //getTimeRemaining
-
+        public boolean canChooseFlight(String airlineChoice) throws IOException {
+            FileReader fr = new FileReader("Reservations.txt");
+            BufferedReader bfr = new BufferedReader(fr);
+            String line = bfr.readLine();
+            while (!line.equals(airlineChoice)) {
+                line = bfr.readLine();
+            } //gets to the line with the name of the airline
+            line = bfr.readLine(); //read one more line to get to the number of passengers
+            String currentPass = line.substring(0, line.indexOf('/'));
+            String maxPass = line.substring(line.indexOf("/") + 1);
+            bfr.close();
+            return (Integer.parseInt(currentPass) < Integer.parseInt(maxPass));
+        }
         /**
          * Handles the requests sent by the client connected to this request handler's client socket.
          */
         @Override
         public void run() {
-
             try {
 
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
                 ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -286,6 +289,22 @@ public final class ReservationServer {
 
                 //
 
+                if (true) { //if a certain button is pushed? How to get this input?? This is meant to display passList
+                    writer.write(readPassList("Alaska").toString()); //send this back to client?
+                    writer.newLine();
+                    writer.flush();
+                }
+                if (true) { //if the user wants to add a passenger. How to get this input??
+                    addPassenger("Jane", "Doe", 28); //use the input from user instead
+                }
+                if (true) { //if they want to check if an airline has seats available
+                    boolean goAhead = canChooseFlight("Delta"); //get airline from client, send result back
+                }
+                writer.close();
+                reader.close();
+
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
                 //String s = reader.readLine();
                 //System.out.println(s);
                 //oos.writeObject(southwest);
@@ -328,7 +347,7 @@ public final class ReservationServer {
                 //writer.close();
                 //reader.close();
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 System.out.println(e.toString());
             }
 
@@ -375,7 +394,7 @@ public final class ReservationServer {
          */
         @Override
         public String toString() {
-            String format = "CountdownRequestHandler[%s]";
+            String format = "ReservationRequestHandler[%s]";
 
             return String.format(format, this.clientSocket);
         } //toString
