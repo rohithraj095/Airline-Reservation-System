@@ -2,22 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d046dc7-11ee-4e31-993d-cb363c3bd540" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Reservations.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/Airline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/Airline.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/Alaska.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/Alaska.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/BoardingPass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/BoardingPass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/ClientHandler.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/Delta.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/Delta.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/Gate.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/Gate.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/Passenger.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/Passenger.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/ReservationClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/ReservationClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/ReservationServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/ReservationServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/ResponseListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/ResponseListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/ResponseListener.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PROJECT_5/Southwest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROJECT_5/Southwest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ReservationServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReservationServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reservations.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Reservations.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +42,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Cassie\IdeaProjects\Project_05" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -57,7 +60,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.ReservationClient">
-    <configuration name="ReservationClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="ReservationClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ReservationClient" />
       <module name="PROJECT_5" />
       <method v="2">
@@ -71,6 +74,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.ReservationClient" />
+      <item itemvalue="Application.ReservationServer" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ReservationClient" />
@@ -89,7 +96,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574014509512</updated>
       <workItem from="1574014515461" duration="9880000" />
-      <workItem from="1574561373900" duration="8818000" />
+      <workItem from="1574561373900" duration="16326000" />
     </task>
     <servers />
   </component>

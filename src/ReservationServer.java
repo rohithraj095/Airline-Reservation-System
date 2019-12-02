@@ -1,9 +1,6 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -173,8 +170,7 @@ public final class ReservationServer {
             } //now on the line that says what airline it is
             line = bfr.readLine();
             line = bfr.readLine(); //skipped the line with the numbers
-            while (line != null) {
-                //System.out.println(line); //instead send to client somehow?
+            while (line != null && !line.isBlank()) {
                 passList.add(line);
                 line = bfr.readLine();
             }
@@ -182,13 +178,59 @@ public final class ReservationServer {
             return passList;
         }
 
-        public void addPassenger(String firstName, String lastName, int age) throws FileNotFoundException {
-            FileOutputStream fos = new FileOutputStream("Reservations.txt", true);
+
+        public void addPassenger(Airline airline, Passenger passenger) throws IOException {
+            ArrayList alaskaPass = readPassList("Alaska");
+            ArrayList deltaPass = readPassList("Delta");
+            ArrayList southwestPass = readPassList("Southwest");
+            FileOutputStream fos = new FileOutputStream("Reservations.txt");
             PrintWriter pw = new PrintWriter(fos);
-            //Update the current number of passengers. How to overwrite a line???
-            pw.println("Current num passengers + 1" + "/" + "Max num");
-            //figure out how to start at the correct line so it prints in the right spot
-            pw.println(firstName.toUpperCase().substring(0, 1) + ". " + lastName + ", " + age);
+            int updatedPassNum;
+
+            pw.println("Alaska");
+            if (airline.equals(alaska)) {
+                updatedPassNum = alaskaPass.size() + 1;
+                pw.println(updatedPassNum + "/" + airline.getMaxPassengers());
+            } else {
+                pw.println(alaskaPass.size() + "/" + airline.getMaxPassengers());
+            }
+            for (int i = 0; i < alaskaPass.size(); i++) {
+                pw.println(alaskaPass.get(i));
+            }
+            if (airline.equals(alaska)) {
+                pw.println(passenger.getfName().substring(0, 1) + ". " + passenger.getlName() + ", " + passenger.getAge());
+            }
+            pw.println();
+
+            pw.println("Delta");
+            if (airline.equals(delta)) {
+                updatedPassNum = deltaPass.size() + 1;
+                pw.println(updatedPassNum + "/" + airline.getMaxPassengers());
+            } else {
+                pw.println(deltaPass.size() + "/" + airline.getMaxPassengers());
+            }
+            for (int i = 0; i < deltaPass.size(); i++) {
+                pw.println(deltaPass.get(i));
+            }
+            if (airline.equals(delta)) {
+                pw.println(passenger.getfName().substring(0, 1) + ". " + passenger.getlName() + ", " + passenger.getAge());
+            }
+            pw.println();
+
+            pw.println("Southwest");
+            if (airline.equals(southwest)) {
+                updatedPassNum = southwestPass.size() + 1;
+                pw.println(updatedPassNum + "/" + airline.getMaxPassengers());
+            } else {
+                pw.println(southwestPass.size() + "/" + airline.getMaxPassengers());
+            }
+            for (int i = 0; i < southwestPass.size(); i++) {
+                pw.println(southwestPass.get(i));
+            }
+            if (airline.equals(southwest)) {
+                pw.println(passenger.getfName().substring(0, 1) + ". " + passenger.getlName() + ", " + passenger.getAge());
+            }
+
             pw.close();
         }
 
@@ -211,8 +253,6 @@ public final class ReservationServer {
         @Override
         public void run() {
             try {
-
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
@@ -223,28 +263,6 @@ public final class ReservationServer {
                 Delta delta = ReservationServer.getDelta();
                 Southwest southwest = ReservationServer.getSouthwest();
                 Alaska alaska = ReservationServer.getAlaska();
-
-                //writer.flush();
-
-                //writer.write(delta.getGate());
-                //writer.flush();
-
-                //String airlineName = reader.readLine();
-
-                /*
-
-                if(airlineName.equals("Delta")){
-                    oos.writeObject(delta);
-                }
-                else if(airlineName.equals("Southwest")){
-                    oos.writeObject(southwest);
-                }
-                else if(airlineName.equals("Alaska")){
-                    oos.writeObject(alaska);
-                }
-
-
-                 */
 
 
                 oos.writeObject(delta);
@@ -260,12 +278,18 @@ public final class ReservationServer {
 
                 Passenger pass = (Passenger) (ois.readObject());
 
-                if(pass.getAirlineName().equals("Delta Airlines"))
+                if(pass.getAirlineName().equals("Delta Airlines")) {
                     delta.addPassengers(pass);
-                else if(pass.getAirlineName().equals("Southwest Airlines"))
+                    addPassenger(delta, pass);
+                }
+                else if(pass.getAirlineName().equals("Southwest Airlines")) {
                     southwest.addPassengers(pass);
-                else
+                    addPassenger(southwest, pass);
+                }
+                else {
                     alaska.addPassengers(pass);
+                    addPassenger(alaska, pass);
+                }
 
                 for (int a = 0; a < delta.passengerList().size(); a++) {
                     System.out.println(delta.passengerList().get(a).toString());
@@ -283,25 +307,16 @@ public final class ReservationServer {
                     oos.flush();
                 }
 
-                //Delta delt = (Delta) (ois.readObject());
-                //System.out.println(delt.getGate());
-
-
-                //
-
-                if (true) { //if a certain button is pushed? How to get this input?? This is meant to display passList
+                /*if (true) { //if a certain button is pushed? How to get this input?? This is meant to display passList
                     writer.write(readPassList("Alaska").toString()); //send this back to client?
                     writer.newLine();
                     writer.flush();
-                }
-                if (true) { //if the user wants to add a passenger. How to get this input??
-                    addPassenger("Jane", "Doe", 28); //use the input from user instead
-                }
-                if (true) { //if they want to check if an airline has seats available
+                }*/
+                /*if (true) { //if they want to check if an airline has seats available
                     boolean goAhead = canChooseFlight("Delta"); //get airline from client, send result back
                 }
                 writer.close();
-                reader.close();
+                reader.close(); */
 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
