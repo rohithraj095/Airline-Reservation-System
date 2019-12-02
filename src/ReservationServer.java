@@ -24,6 +24,9 @@ public final class ReservationServer {
      * The server socket of this server.
      */
     private ServerSocket serverSocket;
+    static Alaska alaska = new Alaska();
+    static Delta delta = new Delta();
+    static Southwest southwest = new Southwest();
 
     /**
      * Constructs a newly allocated {@code CountdownServer} object.
@@ -69,6 +72,7 @@ public final class ReservationServer {
                 break;
             } //end try catch
 
+
             handler = new ClientHandler(clientSocket);
 
             handlerThread = new Thread(handler);
@@ -94,6 +98,18 @@ public final class ReservationServer {
 
         return result;
     } //hashCode
+
+    public static Delta getDelta(){
+        return delta;
+    }
+
+    public static Southwest getSouthwest(){
+        return southwest;
+    }
+
+    public static Alaska getAlaska(){
+        return alaska;
+    }
 
     /**
      * Determines whether or not the specified object is equal to this server. {@code true} is returned if and only if
@@ -192,41 +208,128 @@ public final class ReservationServer {
 
             try {
 
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-                writer.flush();
 
-                String s = reader.readLine();
+                ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
 
-                String time = "";
+                ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
+
+                Delta delta = ReservationServer.getDelta();
+                Southwest southwest = ReservationServer.getSouthwest();
+                Alaska alaska = ReservationServer.getAlaska();
+
+                //writer.flush();
+
+                //writer.write(delta.getGate());
+                //writer.flush();
+
+                //String airlineName = reader.readLine();
+
+                /*
+
+                if(airlineName.equals("Delta")){
+                    oos.writeObject(delta);
+                }
+                else if(airlineName.equals("Southwest")){
+                    oos.writeObject(southwest);
+                }
+                else if(airlineName.equals("Alaska")){
+                    oos.writeObject(alaska);
+                }
 
 
-                while (!s.equals(null)) {
+                 */
 
-                    /*try {
+
+                oos.writeObject(delta);
+                oos.writeObject(southwest);
+                oos.writeObject(alaska);
+                oos.flush();
+
+
+                oos.writeObject(delta);
+                oos.writeObject(southwest);
+                oos.writeObject(alaska);
+                oos.flush();
+
+                Passenger pass = (Passenger) (ois.readObject());
+
+                if(pass.getAirlineName().equals("Delta Airlines"))
+                    delta.addPassengers(pass);
+                else if(pass.getAirlineName().equals("Southwest Airlines"))
+                    southwest.addPassengers(pass);
+                else
+                    alaska.addPassengers(pass);
+
+                for (int a = 0; a < delta.passengerList().size(); a++) {
+                    System.out.println(delta.passengerList().get(a).toString());
+                }
+
+                        oos.writeObject(delta);
+                        oos.writeObject(southwest);
+                        oos.writeObject(alaska);
+                        oos.flush();
+
+                while(true) {
+                    oos.writeObject(delta);
+                    oos.writeObject(southwest);
+                    oos.writeObject(alaska);
+                    oos.flush();
+                }
+
+                //Delta delt = (Delta) (ois.readObject());
+                //System.out.println(delt.getGate());
+
+
+                //
+
+                //String s = reader.readLine();
+                //System.out.println(s);
+                //oos.writeObject(southwest);
+                //oos.writeObject(alaska);
+
+
+                /*
+
+
+
+                 */
+
+
+                //oos.flush();
+
+                //oos.close();
+
+                //System.out.println(s);
+
+                //String time = "";
+
+
+                    /*
+                    try {
                         time = getTimeRemaining(s);
                     } catch (DateTimeParseException e) {
                         time = "Error: the specified event date is incorrectly formatted!";
                     }
+                    */
 
 
+                    //writer.write(s);
 
-                     */
-                    writer.write(time);
+                    //writer.newLine();
+                    //writer.flush();
 
-                    writer.newLine();
-                    writer.flush();
-
-                    s = reader.readLine();
-                }
+                    //s = reader.readLine();
 
 
-                writer.close();
-                reader.close();
+                //writer.close();
+                //reader.close();
 
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println(e.toString());
             }
 
         } //run

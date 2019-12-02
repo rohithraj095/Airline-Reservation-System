@@ -22,13 +22,13 @@ public class Gate implements Serializable {
 
         alpha = alphas.get(randAlpha);
 
-        alphas.remove(randAlpha);
+        //alphas.remove(randAlpha);
 
         randNum = rand.nextInt(18);
         randNum++;
     }
 
     public String toString(){
-        return alpha + randNum;
+        return "" + alpha + "" + randNum;
     }
 }

@@ -1,4 +1,6 @@
-public class Passenger {
+import java.io.Serializable;
+
+public class Passenger implements Serializable {
 
     private String fName;
     private String lName;
@@ -24,15 +26,20 @@ public class Passenger {
         return age;
     }
 
-    public BoardingPass boardingPass(){
-        return new BoardingPass(this);
+    public BoardingPass getBoardingPass(Passenger passenger){
+        return new BoardingPass(passenger);
     }
 
-    public Airline getAirline() {
-        return airline;
+    public String getAirlineName() {
+        return airline.getName();
     }
 
     public String toString(){
         return fName.substring(0,1).toUpperCase() + ". " + lName.toUpperCase() + ", " + age;
     }
+
+    public String getGate(){
+        return airline.getGate();
+    }
+
 }

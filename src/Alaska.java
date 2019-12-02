@@ -29,6 +29,10 @@ public class Alaska implements Airline {
         return (passengers.size() < 100);
     }
 
+    public ArrayList<Passenger> passengerList() {
+        return passengers;
+    }
+
     @Override
     public String toString() {
         return "Alaska Airlines is proud to serve the strong and knowledgeable Boilermakers from Purdue University. \n" +
@@ -37,6 +41,10 @@ public class Alaska implements Airline {
                 "We provide fun snacks, such as pretzels and goldfish. \n" +
                 "We also have comfortable seats and free WiFi. \n" +
                 "We hope you choose Alaska Airlines for your next trip!";
+    }
+
+    public String getName() {
+        return "Alaska Airlines";
     }
 
     public String getGate() {

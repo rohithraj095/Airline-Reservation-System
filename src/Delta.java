@@ -29,6 +29,10 @@ public class Delta implements Airline {
         return (passengers.size() < 200);
     }
 
+    public ArrayList<Passenger> passengerList() {
+        return passengers;
+    }
+
     @Override
     public String toString() {
         return "Delta Airlines is proud to be one of the five premier Airlines at Purdue University. \n" +
@@ -40,5 +44,9 @@ public class Delta implements Airline {
 
     public String getGate() {
         return gate.toString();
+    }
+
+    public String getName() {
+        return "Delta Airlines";
     }
 }

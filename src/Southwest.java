@@ -40,4 +40,12 @@ public class Southwest implements Airline {
     public String getGate() {
         return gate.toString();
     }
+
+    public ArrayList<Passenger> passengerList() {
+        return passengers;
+    }
+
+    public String getName() {
+        return "Southwest Airlines";
+    }
 }
