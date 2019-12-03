@@ -97,7 +97,7 @@ public final class ReservationClient {
             JPanel title1 = new JPanel();
 
 
-            ImageIcon i = new ImageIcon("src/Purdue_Logo.png");
+            ImageIcon i = new ImageIcon("Purdue_Logo.png");
 
             JButton ok1 = new JButton("Next");
             JButton cancel1 = new JButton("Exit");
@@ -977,18 +977,20 @@ public final class ReservationClient {
                                                                                     @Override
                                                                                     public void actionPerformed(ActionEvent e) {
                                                                                         if (e.getSource() == ok20) {
-                                                                                            Airline deltobj = null;
-                                                                                            Airline swobj = null;
-                                                                                            Airline alaskobj = null;
+
+
+                                                                                            Object[] passlist = null;
 
                                                                                             try {
-                                                                                                deltobj = (Delta) (ois.readObject());
-                                                                                                swobj = (Southwest) (ois.readObject());
-                                                                                                alaskobj = (Alaska) (ois.readObject());
+                                                                                                passlist = (Object[]) ois.readObject();
                                                                                                 //System.out.println(deltobj.passengerList().toString());
                                                                                             } catch (IOException | ClassNotFoundException h) {
                                                                                                 System.out.println(h.toString());
                                                                                             }
+
+
+                                                                                            list5.setListData(passlist);
+                                                                                            jf20.repaint();
 
                                                                             /*
 
@@ -1018,7 +1020,6 @@ public final class ReservationClient {
                                                                             jf20.add(title21, BorderLayout.CENTER);
                                                                             */
 
-                                                                                            jf20.repaint();
 
                                                                                         }
                                                                                     }

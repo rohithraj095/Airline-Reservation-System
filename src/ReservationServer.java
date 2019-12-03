@@ -304,7 +304,6 @@ public final class ReservationServer {
                 //String airlineName = reader.readLine();
 
                 /*
-
                 if(airlineName.equals("Delta")){
                     oos.writeObject(delta);
                 }
@@ -314,8 +313,6 @@ public final class ReservationServer {
                 else if(airlineName.equals("Alaska")){
                     oos.writeObject(alaska);
                 }
-
-
                  */
 
                 ArrayList allPassengers= new ArrayList<>();
@@ -354,24 +351,28 @@ public final class ReservationServer {
                 }
 
                 //for (int a = 0; a < delta.passengerList().size(); a++) {
-                    //System.out.println(delta.passengerList().get(a).toString());
+                //System.out.println(delta.passengerList().get(a).toString());
                 //}
 
                 /*oos.writeObject(delta);
                 oos.writeObject(southwest);
                 oos.writeObject(alaska);
                 oos.flush();
-
-
                  */
 
                 oos.writeObject(allPassengers);
 
                 while (true) {
-                    oos.writeObject(delta);
-                    oos.writeObject(southwest);
-                    oos.writeObject(alaska);
-                    oos.flush();
+                    if (pass.getAirlineName().equals("Delta Airlines")) {
+                        allPassengers = readPassList("Delta");
+                    }
+                    else if (pass.getAirlineName().equals("Southwest Airlines")) {
+                        allPassengers = readPassList("Southwest");
+                    }
+                    else {
+                        allPassengers = readPassList("Alaska");
+                    }
+                    oos.writeObject(allPassengers.toArray());
                 }
 
                 //Delta delt = (Delta) (ois.readObject());
@@ -387,9 +388,6 @@ public final class ReservationServer {
 
 
                 /*
-
-
-
                  */
 
 
