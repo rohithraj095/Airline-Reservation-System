@@ -362,17 +362,20 @@ public final class ReservationServer {
 
                 oos.writeObject(allPassengers);
 
+
+
                 while (true) {
+                    ArrayList newPassengers= new ArrayList<>();
                     if (pass.getAirlineName().equals("Delta Airlines")) {
-                        allPassengers = readPassList("Delta");
+                        newPassengers = readPassList("Delta");
                     }
                     else if (pass.getAirlineName().equals("Southwest Airlines")) {
-                        allPassengers = readPassList("Southwest");
+                        newPassengers = readPassList("Southwest");
                     }
                     else {
-                        allPassengers = readPassList("Alaska");
+                        newPassengers = readPassList("Alaska");
                     }
-                    oos.writeObject(allPassengers.toArray());
+                    oos.writeObject(newPassengers.toArray());
                 }
 
                 //Delta delt = (Delta) (ois.readObject());
