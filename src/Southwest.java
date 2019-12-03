@@ -1,17 +1,27 @@
 import java.util.ArrayList;
 
+/**
+ * Southwest
+ * <p>
+ * Has aspects of a Southwest Airlines
+ *
+ * @author Rohith Rajashekarbabu, Cassandra Jessica Deckowitz, lab- B13
+ * @version December 03, 2019
+ */
+
 public class Southwest implements Airline {
 
     private ArrayList<Passenger> passengers;
     private Gate gate;
+    private int maxSize = 100;
 
-    public Southwest () {
+    public Southwest() {
         passengers = new ArrayList<>();
         gate = new Gate();
     }
 
     public void addPassengers(Passenger passenger) {
-        if(passenger != null && getCurrentPassengers() < getMaxPassengers())
+        if (passenger != null && getCurrentPassengers() < getMaxPassengers())
             passengers.add(passenger);
     }
 
@@ -22,11 +32,11 @@ public class Southwest implements Airline {
 
     @Override
     public int getMaxPassengers() {
-        return 100;
+        return maxSize;
     }
 
     public boolean canAddPassenger() {
-        return (passengers.size() < 100);
+        return (passengers.size() <= maxSize);
     }
 
     @Override

@@ -7,7 +7,7 @@ public class test {
 
     private static String description;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         /*
         JFrame jf = new JFrame("P U F R S");
         JButton button = new JButton("Push");
@@ -196,20 +196,19 @@ public class test {
         list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == list) {
-                    JComboBox cb = (JComboBox)e.getSource();
-                    String msg = (String)cb.getSelectedItem();
+                if (e.getSource() == list) {
+                    JComboBox cb = (JComboBox) e.getSource();
+                    String msg = (String) cb.getSelectedItem();
                     //assert msg != null;
-                    if(msg.equals("Delta"))
+                    if (msg.equals("Delta"))
                         msglabel.setText("delta air");
-                    else if(msg.equals("Alaska"))
+                    else if (msg.equals("Alaska"))
                         msglabel.setText("Alaska air");
                     else
                         msglabel.setText("Southwest");
                 }
             }
         });
-
 
 
         JFrame jf2 = new JFrame("Purdue University Flight Reservation System");
@@ -236,8 +235,6 @@ public class test {
         title2.add(main2, BorderLayout.CENTER);
 
 
-
-
         jf2.add(title2, BorderLayout.PAGE_START);
         jf2.add(title3, BorderLayout.CENTER);
         //jf2.add(title4, BorderLayout.AFTER_LAST_LINE);
@@ -245,9 +242,6 @@ public class test {
         jf2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jf2.setSize(600, 300);
         jf2.setVisible(true);
-
-
-
 
 
     }

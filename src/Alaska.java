@@ -1,9 +1,19 @@
 import java.util.ArrayList;
 
+/**
+ * Alaska
+ * <p>
+ * Has aspects of an Alaska Airlines
+ *
+ * @author Rohith Rajashekarbabu, Cassandra Jessica Deckowitz, lab- B13
+ * @version December 03, 2019
+ */
+
 public class Alaska implements Airline {
 
     private ArrayList<Passenger> passengers;
     private Gate gate;
+    private int maxSize = 50;
 
     public Alaska() {
         passengers = new ArrayList<>();
@@ -11,7 +21,7 @@ public class Alaska implements Airline {
     }
 
     public void addPassengers(Passenger passenger) {
-        if(passenger != null && getCurrentPassengers() < getMaxPassengers())
+        if (passenger != null && getCurrentPassengers() < getMaxPassengers())
             passengers.add(passenger);
     }
 
@@ -22,11 +32,11 @@ public class Alaska implements Airline {
 
     @Override
     public int getMaxPassengers() {
-        return 100;
+        return maxSize;
     }
 
     public boolean canAddPassenger() {
-        return (passengers.size() < 100);
+        return (passengers.size() <= maxSize);
     }
 
     public ArrayList<Passenger> passengerList() {

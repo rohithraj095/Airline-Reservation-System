@@ -2,6 +2,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Gate
+ * <p>
+ * Has aspects of a Gate for airlines
+ *
+ * @author Rohith Rajashekarbabu, Cassandra Jessica Deckowitz, lab- B13
+ * @version December 03, 2019
+ */
+
 public class Gate implements Serializable {
 
     private int randNum;
@@ -28,7 +37,7 @@ public class Gate implements Serializable {
         randNum++;
     }
 
-    public String toString(){
+    public String toString() {
         return "" + alpha + "" + randNum;
     }
 }

@@ -1,17 +1,27 @@
 import java.util.ArrayList;
 
+/**
+ * Delta
+ * <p>
+ * Has aspects of an Delta Airlines
+ *
+ * @author Rohith Rajashekarbabu, Cassandra Jessica Deckowitz, lab- B13
+ * @version December 03, 2019
+ */
+
 public class Delta implements Airline {
 
     private ArrayList<Passenger> passengers;
     private Gate gate;
+    private int maxSize = 100;
 
-    public Delta () {
+    public Delta() {
         passengers = new ArrayList<>();
         gate = new Gate();
     }
 
     public void addPassengers(Passenger passenger) {
-        if(passenger != null && getCurrentPassengers() < getMaxPassengers())
+        if (passenger != null && getCurrentPassengers() < getMaxPassengers())
             passengers.add(passenger);
     }
 
@@ -22,11 +32,11 @@ public class Delta implements Airline {
 
     @Override
     public int getMaxPassengers() {
-        return 100;
+        return maxSize;
     }
 
     public boolean canAddPassenger() {
-        return (passengers.size() < 200);
+        return (passengers.size() <= maxSize);
     }
 
     public ArrayList<Passenger> passengerList() {

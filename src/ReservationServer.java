@@ -1,21 +1,19 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * CountdownServer
+ * ReservationServer
+ * <p>
+ * Serverside for ReservationServer
  *
- * Server program for the countdown
- *
- * @author Rohith Rajashekarbabu, lab- B13
- * @version November 07, 2019
- *
- *
- * A server used to obtain the years, months, and days until a date requested by a client.
- *
- * <p>Purdue University -- CS18000 -- Fall 2019 -- Network I/O -- Homework</p>
+ * @author Rohith Rajashekarbabu, Cassandra Jessica Deckowitz, lab- B13
+ * @version December 03, 2019
  */
 public final class ReservationServer {
     /**
@@ -48,7 +46,7 @@ public final class ReservationServer {
 
     public ReservationServer() throws IOException {
         this.serverSocket = new ServerSocket(0);
-    } //ReservationServer
+    } //CountdownServer
 
     /**
      * Serves the clients that connect to this server.
@@ -69,6 +67,7 @@ public final class ReservationServer {
 
                 break;
             } //end try catch
+
 
             handler = new ClientHandler(clientSocket);
 
@@ -96,15 +95,15 @@ public final class ReservationServer {
         return result;
     } //hashCode
 
-    public static Delta getDelta(){
+    public static Delta getDelta() {
         return delta;
     }
 
-    public static Southwest getSouthwest(){
+    public static Southwest getSouthwest() {
         return southwest;
     }
 
-    public static Alaska getAlaska(){
+    public static Alaska getAlaska() {
         return alaska;
     }
 
@@ -134,11 +133,10 @@ public final class ReservationServer {
      */
     @Override
     public String toString() {
-        String format = "ReservationServer[%s]";
+        String format = "CountdownServer[%s]";
 
         return String.format(format, this.serverSocket);
     } //toString
-
 
 
     public static final class ClientHandler implements Runnable {
@@ -157,7 +155,8 @@ public final class ReservationServer {
             Objects.requireNonNull(clientSocket, "the specified client socket is null");
 
             this.clientSocket = clientSocket;
-        } //ClientHandler
+        } //CountdownRequestHandler
+
 
 
         public ArrayList readPassList(String airlineChoice) throws IOException {
@@ -170,7 +169,7 @@ public final class ReservationServer {
             } //now on the line that says what airline it is
             line = bfr.readLine();
             line = bfr.readLine(); //skipped the line with the numbers
-            while (line != null && !line.isBlank()) {
+            while (line != null && !line.isEmpty()) {
                 passList.add(line);
                 line = bfr.readLine();
             }
@@ -183,6 +182,7 @@ public final class ReservationServer {
             ArrayList alaskaPass = readPassList("Alaska");
             ArrayList deltaPass = readPassList("Delta");
             ArrayList southwestPass = readPassList("Southwest");
+            //File f = new File("Reservations.txt");
             FileOutputStream fos = new FileOutputStream("Reservations.txt");
             PrintWriter pw = new PrintWriter(fos);
             int updatedPassNum;
@@ -247,13 +247,29 @@ public final class ReservationServer {
             bfr.close();
             return (Integer.parseInt(currentPass) < Integer.parseInt(maxPass));
         }
+
+
+        /**
+         * Returns the time remaining until the specified event date. The returned {@code String} is of the form
+         * {@code xYyMzD}, where {@code x}, {@code y}, and {@code z} are the number of years, months, and days until the
+         * specified date.
+         *
+         * @param eventDate the event date to be used in the operation
+         * @return the time remaining until the specified event date
+         * @throws DateTimeParseException if the specified event date is not parsable
+         */
+
         /**
          * Handles the requests sent by the client connected to this request handler's client socket.
          */
         @Override
         public void run() {
+
             try {
+
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
                 ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -264,10 +280,37 @@ public final class ReservationServer {
                 Southwest southwest = ReservationServer.getSouthwest();
                 Alaska alaska = ReservationServer.getAlaska();
 
+                //writer.flush();
 
-                oos.writeObject(delta);
-                oos.writeObject(southwest);
-                oos.writeObject(alaska);
+                //writer.write(delta.getGate());
+                //writer.flush();
+
+                //String airlineName = reader.readLine();
+
+                /*
+
+                if(airlineName.equals("Delta")){
+                    oos.writeObject(delta);
+                }
+                else if(airlineName.equals("Southwest")){
+                    oos.writeObject(southwest);
+                }
+                else if(airlineName.equals("Alaska")){
+                    oos.writeObject(alaska);
+                }
+
+
+                 */
+
+                ArrayList allPassengers= new ArrayList<>();
+
+
+                oos.writeObject(readPassList("Delta"));
+                oos.writeObject(readPassList("Southwest"));
+                oos.writeObject(readPassList("Alaska"));
+                oos.writeObject(String.valueOf(delta.getMaxPassengers()));
+                oos.writeObject(String.valueOf(southwest.getMaxPassengers()));
+                oos.writeObject(String.valueOf(alaska.getMaxPassengers()));
                 oos.flush();
 
 
@@ -278,48 +321,49 @@ public final class ReservationServer {
 
                 Passenger pass = (Passenger) (ois.readObject());
 
-                if(pass.getAirlineName().equals("Delta Airlines")) {
+                if (pass.getAirlineName().equals("Delta Airlines")) {
                     delta.addPassengers(pass);
                     addPassenger(delta, pass);
+                    allPassengers = readPassList("Delta");
                 }
-                else if(pass.getAirlineName().equals("Southwest Airlines")) {
+                else if (pass.getAirlineName().equals("Southwest Airlines")) {
                     southwest.addPassengers(pass);
                     addPassenger(southwest, pass);
+                    allPassengers = readPassList("Southwest");
                 }
                 else {
                     alaska.addPassengers(pass);
                     addPassenger(alaska, pass);
+                    allPassengers = readPassList("Alaska");
                 }
 
-                for (int a = 0; a < delta.passengerList().size(); a++) {
-                    System.out.println(delta.passengerList().get(a).toString());
-                }
+                //for (int a = 0; a < delta.passengerList().size(); a++) {
+                    //System.out.println(delta.passengerList().get(a).toString());
+                //}
 
-                        oos.writeObject(delta);
-                        oos.writeObject(southwest);
-                        oos.writeObject(alaska);
-                        oos.flush();
+                /*oos.writeObject(delta);
+                oos.writeObject(southwest);
+                oos.writeObject(alaska);
+                oos.flush();
 
-                while(true) {
+
+                 */
+
+                oos.writeObject(allPassengers);
+
+                while (true) {
                     oos.writeObject(delta);
                     oos.writeObject(southwest);
                     oos.writeObject(alaska);
                     oos.flush();
                 }
 
-                /*if (true) { //if a certain button is pushed? How to get this input?? This is meant to display passList
-                    writer.write(readPassList("Alaska").toString()); //send this back to client?
-                    writer.newLine();
-                    writer.flush();
-                }*/
-                /*if (true) { //if they want to check if an airline has seats available
-                    boolean goAhead = canChooseFlight("Delta"); //get airline from client, send result back
-                }
-                writer.close();
-                reader.close(); */
+                //Delta delt = (Delta) (ois.readObject());
+                //System.out.println(delt.getGate());
 
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+
+                //
+
                 //String s = reader.readLine();
                 //System.out.println(s);
                 //oos.writeObject(southwest);
@@ -351,18 +395,18 @@ public final class ReservationServer {
                     */
 
 
-                    //writer.write(s);
+                //writer.write(s);
 
-                    //writer.newLine();
-                    //writer.flush();
+                //writer.newLine();
+                //writer.flush();
 
-                    //s = reader.readLine();
+                //s = reader.readLine();
 
 
                 //writer.close();
                 //reader.close();
 
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 System.out.println(e.toString());
             }
 
@@ -409,7 +453,7 @@ public final class ReservationServer {
          */
         @Override
         public String toString() {
-            String format = "ReservationRequestHandler[%s]";
+            String format = "CountdownRequestHandler[%s]";
 
             return String.format(format, this.clientSocket);
         } //toString

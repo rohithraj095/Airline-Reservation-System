@@ -1,5 +1,14 @@
 import java.io.Serializable;
 
+/**
+ * Passenger
+ * <p>
+ * Has aspects of a Passenger
+ *
+ * @author Rohith Rajashekarbabu, Cassandra Jessica Deckowitz, lab- B13
+ * @version December 03, 2019
+ */
+
 public class Passenger implements Serializable {
 
     private String fName;
@@ -26,7 +35,7 @@ public class Passenger implements Serializable {
         return age;
     }
 
-    public BoardingPass getBoardingPass(Passenger passenger){
+    public BoardingPass getBoardingPass(Passenger passenger) {
         return new BoardingPass(passenger);
     }
 
@@ -34,11 +43,11 @@ public class Passenger implements Serializable {
         return airline.getName();
     }
 
-    public String toString(){
-        return fName.substring(0,1).toUpperCase() + ". " + lName.toUpperCase() + ", " + age;
+    public String toString() {
+        return fName.substring(0, 1).toUpperCase() + ". " + lName.toUpperCase() + ", " + age;
     }
 
-    public String getGate(){
+    public String getGate() {
         return airline.getGate();
     }
 
