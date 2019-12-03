@@ -123,7 +123,6 @@ public final class ReservationClient {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == cancel1) {
-                        //System.exit(0);
                         jf.dispose();
                         JOptionPane.showMessageDialog(null,
                                 "Thank you for using the Purdue University Airline Management System!",
@@ -146,7 +145,6 @@ public final class ReservationClient {
 
                         jf.setVisible(false);
                         jf2.setVisible(true);
-
 
 
                     }
@@ -181,7 +179,6 @@ public final class ReservationClient {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == cancel2) {
-                        //System.exit(0);
                         jf2.dispose();
                         JOptionPane.showMessageDialog(null,
                                 "Thank you for using the Purdue University Airline Management System!",
@@ -209,10 +206,9 @@ public final class ReservationClient {
             });
 
 
-
-            ArrayList dobj= new ArrayList<>();
-            ArrayList sobj= new ArrayList<>();
-            ArrayList aobj= new ArrayList<>();
+            ArrayList dobj = new ArrayList<>();
+            ArrayList sobj = new ArrayList<>();
+            ArrayList aobj = new ArrayList<>();
             String maxDelta = null;
             String maxSouthwest = null;
             String maxAlaska = null;
@@ -263,11 +259,11 @@ public final class ReservationClient {
             messageStringsAL.add("Southwest");
             messageStringsAL.add("Alaska");
 
-            if(finalDobj.size() >= Integer.parseInt(maxDelta))
+            if (finalDobj.size() >= Integer.parseInt(maxDelta))
                 messageStringsAL.remove("Delta");
-            if(finalSobj.size() >= Integer.parseInt(maxSouthwest))
+            if (finalSobj.size() >= Integer.parseInt(maxSouthwest))
                 messageStringsAL.remove("Southwest");
-            if(finalAobj.size() >= Integer.parseInt(maxAlaska))
+            if (finalAobj.size() >= Integer.parseInt(maxAlaska))
                 messageStringsAL.remove("Alaska");
 
             JComboBox list = new JComboBox(messageStringsAL.toArray());
@@ -362,7 +358,7 @@ public final class ReservationClient {
                         } else if (list.getSelectedItem().equals("Southwest")) {
                             nameOfAir = "Southwest Airlines. " + finalSobj.size() + ":" + finalMaxSouthwest;
                             passlist = finalSobj.toArray();
-                        } else if(list.getSelectedItem().equals("Alaska")){
+                        } else if (list.getSelectedItem().equals("Alaska")) {
                             nameOfAir = "Alaska Airlines. " + finalAobj.size() + ":" + finalMaxAlaska;
                             passlist = finalAobj.toArray();
                         }
@@ -448,7 +444,6 @@ public final class ReservationClient {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == cancel5) {
-                        //System.exit(0);
                         jf5.dispose();
                         JOptionPane.showMessageDialog(null,
                                 "Thank you for using the Purdue University Airline Management System!",
@@ -462,6 +457,8 @@ public final class ReservationClient {
 
             JFrame jf200 = new JFrame("Purdue University Flight Reservation System");
             jf200.setVisible(false);
+            JPanel title200 = new JPanel();
+            JLabel main200 = new JLabel();
 
             ok5.addActionListener(new ActionListener() {
                 @Override
@@ -470,32 +467,19 @@ public final class ReservationClient {
 
                         jf5.setVisible(false);
                         jf200.setVisible(true);
+                        main200.setText("Are you sure you want to book a flight on " +
+                                list.getSelectedItem() + " Airlines?");
+                        title200.setFocusable(true);
+                        title200.requestFocusInWindow();
 
 
                     }
                 }
             });
 
-
-
-
-            String whatName;
-
-            if (list.getSelectedIndex() == 0) {
-                whatName = "Delta Airlines";
-            } else if (list.getSelectedIndex() == 1) {
-                whatName = "Southwest Airlines";
-            } else {
-                whatName = "Alaska Airlines";
-            }
-
-            String sure = "Are you sure you want to book a flight on " + whatName + "?";
-            JLabel main200 = new JLabel(sure);
             JPanel buttonPane200 = new JPanel();
 
-            JPanel title200 = new JPanel();
-            title200.setFocusable(true);
-            title200.requestFocusInWindow();
+
 
             JButton ok200 = new JButton("Yes, I want this flight.");
             JButton diff200 = new JButton("No, I want a different flight.");
@@ -529,7 +513,7 @@ public final class ReservationClient {
                         } else if (list.getSelectedItem().equals("Southwest")) {
                             nameOfAir = "Southwest Airlines. " + finalSobj.size() + ":" + finalMaxSouthwest;
                             passlist = finalSobj.toArray();
-                        } else if(list.getSelectedItem().equals("Alaska")){
+                        } else if (list.getSelectedItem().equals("Alaska")) {
                             nameOfAir = "Alaska Airlines. " + finalAobj.size() + ":" + finalMaxAlaska;
                             passlist = finalAobj.toArray();
                         }
@@ -613,7 +597,6 @@ public final class ReservationClient {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == cancel200) {
-                        //System.exit(0);
                         jf200.dispose();
                         JOptionPane.showMessageDialog(null,
                                 "Thank you for using the Purdue University Airline Management System!",
@@ -654,7 +637,6 @@ public final class ReservationClient {
             });
 
 
-
             JLabel main = new JLabel("Please enter your information below.");
             JPanel buttonPane = new JPanel();
             JPanel fieldsPanel = new JPanel();
@@ -693,7 +675,7 @@ public final class ReservationClient {
                         } else if (list.getSelectedItem().equals("Southwest")) {
                             nameOfAir = "Southwest Airlines. " + finalSobj.size() + ":" + finalMaxSouthwest;
                             passlist = finalSobj.toArray();
-                        } else if(list.getSelectedItem().equals("Alaska")){
+                        } else if (list.getSelectedItem().equals("Alaska")) {
                             nameOfAir = "Alaska Airlines. " + finalAobj.size() + ":" + finalMaxAlaska;
                             passlist = finalAobj.toArray();
                         }
@@ -784,12 +766,10 @@ public final class ReservationClient {
                     dim.height / 2 - frame.getSize().height / 2);
 
 
-
             cancel.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == cancel) {
-                        //System.exit(0);
                         frame.dispose();
                         JOptionPane.showMessageDialog(null,
                                 "Thank you for using the Purdue University Airline Management System!",
@@ -919,7 +899,7 @@ public final class ReservationClient {
 
                                 boolean docont = true;
 
-                                ArrayList passlist= new ArrayList<>();
+                                ArrayList passlist = new ArrayList<>();
 
 
                                 try {
@@ -980,7 +960,6 @@ public final class ReservationClient {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
                                         if (e.getSource() == cancel20) {
-                                            //System.exit(0);
                                             jf20.dispose();
                                             JOptionPane.showMessageDialog(null,
                                                     "Thank you for using the Purdue " +
@@ -1012,7 +991,6 @@ public final class ReservationClient {
                                             jf20.repaint();
 
 
-
                                         }
                                     }
 
@@ -1027,8 +1005,6 @@ public final class ReservationClient {
 
 
             });
-
-
 
 
             //end while
@@ -1065,6 +1041,15 @@ public final class ReservationClient {
 
         } //end try catch finally
     } //main
+
+    /**
+     * ResponseListener
+     * <p>
+     * Clientside for ResponseListener
+     *
+     * @author Rohith Rajashekarbabu, Cassandra Jessica Deckowitz, lab- B13
+     * @version December 03, 2019
+     */
     public class ResponseListener {
     }
 }
