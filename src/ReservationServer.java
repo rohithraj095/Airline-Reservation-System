@@ -321,9 +321,9 @@ public final class ReservationServer {
                 oos.writeObject(readPassList("Delta"));
                 oos.writeObject(readPassList("Southwest"));
                 oos.writeObject(readPassList("Alaska"));
-                oos.writeObject(String.valueOf(delta.getMaxPassengers()));
-                oos.writeObject(String.valueOf(southwest.getMaxPassengers()));
-                oos.writeObject(String.valueOf(alaska.getMaxPassengers()));
+                oos.writeObject(String.valueOf(readMaxPassengers("Delta")));
+                oos.writeObject(String.valueOf(readMaxPassengers("Southwest")));
+                oos.writeObject(String.valueOf(readMaxPassengers("Alaska")));
                 oos.flush();
 
 
