@@ -1,9 +1,10 @@
 Alaska
-1/100
+2/10
 J. Doe, 18
+C. DECKOWITZ, 18
 
 Delta
-2/100
+2/50
 A. Johnson, 20
 B. Miller, 25
 

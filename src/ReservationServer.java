@@ -177,12 +177,28 @@ public final class ReservationServer {
             return passList;
         }
 
+        public String readMaxPassengers(String airlineChoice) throws IOException {
+            FileReader fr = new FileReader("Reservations.txt");
+            BufferedReader bfr = new BufferedReader(fr);
+            String line = bfr.readLine();
+            String maxPassengers = "";
+            while (!line.equals(airlineChoice)) {
+                line = bfr.readLine();
+            } //gets to the line with the name of the airline
+            line = bfr.readLine(); //read one more line to get to the number of passengers
+            maxPassengers = line.substring(line.indexOf("/") + 1);
+            bfr.close();
+            return maxPassengers;
+        }
+
 
         public void addPassenger(Airline airline, Passenger passenger) throws IOException {
             ArrayList alaskaPass = readPassList("Alaska");
             ArrayList deltaPass = readPassList("Delta");
             ArrayList southwestPass = readPassList("Southwest");
-            //File f = new File("Reservations.txt");
+            String maxAlaska = readMaxPassengers("Alaska");
+            String maxDelta = readMaxPassengers("Delta");
+            String maxSouthwest = readMaxPassengers("Southwest");
             FileOutputStream fos = new FileOutputStream("Reservations.txt");
             PrintWriter pw = new PrintWriter(fos);
             int updatedPassNum;
@@ -190,45 +206,45 @@ public final class ReservationServer {
             pw.println("Alaska");
             if (airline.equals(alaska)) {
                 updatedPassNum = alaskaPass.size() + 1;
-                pw.println(updatedPassNum + "/" + airline.getMaxPassengers());
+                pw.println(updatedPassNum + "/" + maxAlaska);
             } else {
-                pw.println(alaskaPass.size() + "/" + airline.getMaxPassengers());
+                pw.println(alaskaPass.size() + "/" + maxAlaska);
             }
             for (int i = 0; i < alaskaPass.size(); i++) {
                 pw.println(alaskaPass.get(i));
             }
             if (airline.equals(alaska)) {
-                pw.println(passenger.getfName().substring(0, 1) + ". " + passenger.getlName() + ", " + passenger.getAge());
+                pw.println(passenger.getfName().toUpperCase().substring(0, 1) + ". " + passenger.getlName().toUpperCase() + ", " + passenger.getAge());
             }
             pw.println();
 
             pw.println("Delta");
             if (airline.equals(delta)) {
                 updatedPassNum = deltaPass.size() + 1;
-                pw.println(updatedPassNum + "/" + airline.getMaxPassengers());
+                pw.println(updatedPassNum + "/" + maxDelta);
             } else {
-                pw.println(deltaPass.size() + "/" + airline.getMaxPassengers());
+                pw.println(deltaPass.size() + "/" + maxDelta);
             }
             for (int i = 0; i < deltaPass.size(); i++) {
                 pw.println(deltaPass.get(i));
             }
             if (airline.equals(delta)) {
-                pw.println(passenger.getfName().substring(0, 1) + ". " + passenger.getlName() + ", " + passenger.getAge());
+                pw.println(passenger.getfName().toUpperCase().substring(0, 1) + ". " + passenger.getlName().toUpperCase() + ", " + passenger.getAge());
             }
             pw.println();
 
             pw.println("Southwest");
             if (airline.equals(southwest)) {
                 updatedPassNum = southwestPass.size() + 1;
-                pw.println(updatedPassNum + "/" + airline.getMaxPassengers());
+                pw.println(updatedPassNum + "/" + maxSouthwest);
             } else {
-                pw.println(southwestPass.size() + "/" + airline.getMaxPassengers());
+                pw.println(southwestPass.size() + "/" + maxSouthwest);
             }
             for (int i = 0; i < southwestPass.size(); i++) {
                 pw.println(southwestPass.get(i));
             }
             if (airline.equals(southwest)) {
-                pw.println(passenger.getfName().substring(0, 1) + ". " + passenger.getlName() + ", " + passenger.getAge());
+                pw.println(passenger.getfName().toUpperCase().substring(0, 1) + ". " + passenger.getlName().toUpperCase() + ", " + passenger.getAge());
             }
 
             pw.close();
