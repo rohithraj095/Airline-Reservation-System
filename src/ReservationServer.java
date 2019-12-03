@@ -158,7 +158,6 @@ public final class ReservationServer {
         } //CountdownRequestHandler
 
 
-
         public ArrayList readPassList(String airlineChoice) throws IOException {
             FileReader fr = new FileReader("Reservations.txt");
             BufferedReader bfr = new BufferedReader(fr);
@@ -214,7 +213,8 @@ public final class ReservationServer {
                 pw.println(alaskaPass.get(i));
             }
             if (airline.equals(alaska)) {
-                pw.println(passenger.getfName().toUpperCase().substring(0, 1) + ". " + passenger.getlName().toUpperCase() + ", " + passenger.getAge());
+                pw.println(passenger.getfName().toUpperCase().substring(0, 1) + ". " +
+                        passenger.getlName().toUpperCase() + ", " + passenger.getAge());
             }
             pw.println();
 
@@ -244,7 +244,8 @@ public final class ReservationServer {
                 pw.println(southwestPass.get(i));
             }
             if (airline.equals(southwest)) {
-                pw.println(passenger.getfName().toUpperCase().substring(0, 1) + ". " + passenger.getlName().toUpperCase() + ", " + passenger.getAge());
+                pw.println(passenger.getfName().toUpperCase().substring(0, 1) + ". " +
+                        passenger.getlName().toUpperCase() + ", " + passenger.getAge());
             }
 
             pw.close();
@@ -315,7 +316,7 @@ public final class ReservationServer {
                 }
                  */
 
-                ArrayList allPassengers= new ArrayList<>();
+                ArrayList allPassengers = new ArrayList<>();
 
 
                 oos.writeObject(readPassList("Delta"));
@@ -338,13 +339,11 @@ public final class ReservationServer {
                     delta.addPassengers(pass);
                     addPassenger(delta, pass);
                     allPassengers = readPassList("Delta");
-                }
-                else if (pass.getAirlineName().equals("Southwest Airlines")) {
+                } else if (pass.getAirlineName().equals("Southwest Airlines")) {
                     southwest.addPassengers(pass);
                     addPassenger(southwest, pass);
                     allPassengers = readPassList("Southwest");
-                }
-                else {
+                } else {
                     alaska.addPassengers(pass);
                     addPassenger(alaska, pass);
                     allPassengers = readPassList("Alaska");
@@ -363,16 +362,13 @@ public final class ReservationServer {
                 oos.writeObject(allPassengers);
 
 
-
                 while (true) {
-                    ArrayList newPassengers= new ArrayList<>();
+                    ArrayList newPassengers = new ArrayList<>();
                     if (pass.getAirlineName().equals("Delta Airlines")) {
                         newPassengers = readPassList("Delta");
-                    }
-                    else if (pass.getAirlineName().equals("Southwest Airlines")) {
+                    } else if (pass.getAirlineName().equals("Southwest Airlines")) {
                         newPassengers = readPassList("Southwest");
-                    }
-                    else {
+                    } else {
                         newPassengers = readPassList("Alaska");
                     }
                     oos.writeObject(newPassengers.toArray());
@@ -444,12 +440,15 @@ public final class ReservationServer {
         } //hashCode
 
         /**
-         * Determines whether or not the specified object is equal to this request handler. {@code true} is returned if and
-         * only if the specified object is an instance of {@code CountdownRequestHandler} and its client socket is equal to
+         * Determines whether or not the specified object is equal to this request handler.
+         * {@code true} is returned if and
+         * only if the specified object is an instance of {@code CountdownRequestHandler}
+         * and its client socket is equal to
          * this request handler's.
          *
          * @param object the object to be used in the comparisons
-         * @return {@code true}, if the specified object is equal to this request handler and {@code false} otherwise
+         * @return {@code true}, if the specified object is equal to this request handler
+         * and {@code false} otherwise
          */
         @Override
         public boolean equals(Object object) {
@@ -463,7 +462,8 @@ public final class ReservationServer {
         } //equals
 
         /**
-         * Returns the {@code String} representation of this request handler. The returned {@code String} consists of this
+         * Returns the {@code String} representation of this request handler.
+         * The returned {@code String} consists of this
          * request handler's client socket surrounded by this class' name and square brackets ("[]").
          *
          * @return the {@code String} representation of this request handler
